@@ -22,13 +22,13 @@ public class Sample {
 		
 	}
 	
-	@Test(/*dataProvider="dataProvider"*/)
-	public void test() throws InterruptedException
+	@Test(dataProvider="dataProvider")
+	public void test(String url,String arg1,String arg2) throws InterruptedException
 	{
 		
-		driver.get("https://www.google.com/");
+		driver.get(url);
 		Thread.sleep(1000);
-		System.out.print("driver.getTitle()"+driver.getTitle());
+		System.out.println("driver.getTitle()"+driver.getTitle()+"arg1 :"+arg1+"arg2 :"+arg2);
 	}
 	@AfterTest
 	public void afterTest() {
@@ -37,10 +37,15 @@ public class Sample {
 		driver.quit();
 		
 	}
-	/*@DataProvider
-	public Object [][] dataProvider(){
-		Object obj =new Object();
-		return (Object[][]) obj;
-	}*/
+	@DataProvider
+	public String [][] dataProvider(){
+		
+		return new String[][] 
+    	{
+            { "https://github.com/pallavkrishna/maveenjava","Guru99", "India" },
+            { "https://jenkins.io/download/","Krishna", "UK" },
+            { "https://www.guru99.com/","Bhupesh", "USA" }
+        };
+	}
 
 }
