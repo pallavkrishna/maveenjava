@@ -2,7 +2,9 @@ package com.testng.javasample;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -13,7 +15,7 @@ public class Sample {
 	
 	WebDriver driver=null;
 	
-	@BeforeTest
+	@BeforeMethod
 	
 	public void beforeTest() {
 		WebDriverManager.chromedriver().setup();
@@ -25,24 +27,26 @@ public class Sample {
 	@Test(dataProvider="dataProvider")
 	public void test(String url,String arg1,String arg2) throws InterruptedException
 	{
-		
 		driver.get(url);
-		Thread.sleep(1000);
-		System.out.println("driver.getTitle()"+driver.getTitle()+"arg1 :"+arg1+"arg2 :"+arg2);
+		//System.out.println("driver.getTitle()"+driver.getTitle()+"arg1 :"+arg1+"arg2 :"+arg2);
+		System.out.println("url:"+url+"arg1 :"+arg1+"arg2 :"+arg2);
+
+
+		
 	}
-	@AfterTest
+	@AfterMethod
 	public void afterTest() {
-		
 		driver.close();
-		driver.quit();
+		
+		//driver.quit();
 		
 	}
-	@DataProvider
+	@DataProvider(parallel=true)
 	public String [][] dataProvider(){
 		
 		return new String[][] 
     	{
-            { "https://github.com/pallavkrishna/maveenjava","Guru99", "India" },
+            { "https://github.com/","abc", "India" },
             { "https://jenkins.io/download/","Krishna", "UK" },
             { "https://www.guru99.com/","Bhupesh", "USA" }
         };
